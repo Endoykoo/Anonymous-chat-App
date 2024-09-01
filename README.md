@@ -66,4 +66,4 @@ If you would like to contribute to this project, please fork the repository and 
 
 ### Contact
 
-For any questions or issues, please open an issue on the [GitHub repository](https://github.com/Endoykoo).
+For any questions or issues, please contact me [here](https://github.com/Endoykoo).
