@@ -49,6 +49,6 @@ def post_message():
     return jsonify({'status': 'error', 'message': 'No message provided'}), 400
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=6001, debug=True)
+    app.run(debug=True)
 
 
