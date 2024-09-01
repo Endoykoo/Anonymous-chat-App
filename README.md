@@ -63,10 +63,7 @@ A simple anonymous chat application built with Flask. Each user is identified by
 
 If you would like to contribute to this project, please fork the repository and submit a pull request with your changes.
 
-### License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ### Contact
 
-For any questions or issues, please open an issue on the [GitHub repository](https://github.com/your-username/anonymous-chat-app/issues).
+For any questions or issues, please open an issue on the [GitHub repository](https://github.com/Endoykoo).
