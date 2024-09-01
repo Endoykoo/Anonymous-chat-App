@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anonymous Chat</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #messages { height: 300px; overflow-y: scroll; border: 1px solid #ccc; margin-bottom: 10px; padding: 5px; }
+        #message-input { width: 80%; padding: 5px; }
+        #send-button { padding: 5px 10px; }
+        .message { margin-bottom: 5px; }
+        .username { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Anonymous Chat</h1>
+    <div id="messages"></div>
+    <input type="text" id="message-input" placeholder="Type your message here...">
+    <button id="send-button">Send</button>
+
+    <script>
+        const messagesDiv = document.getElementById('messages');
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+
+        function fetchMessages() {
+            fetch('/messages')
+                .then(response => response.json())
+                .then(messages => {
+                    messagesDiv.innerHTML = '';
+                    messages.forEach(msg => {
+                        const messageDiv = document.createElement('div');
+                        messageDiv.classList.add('message');
+                        
+                        const usernameSpan = document.createElement('span');
+                        usernameSpan.classList.add('username');
+                        usernameSpan.style.color = msg.color;
+                        usernameSpan.textContent = 'Anonymous: ';
+
+                        const messageSpan = document.createElement('span');
+                        messageSpan.textContent = msg.message;
+
+                        messageDiv.appendChild(usernameSpan);
+                        messageDiv.appendChild(messageSpan);
+
+                        messagesDiv.appendChild(messageDiv);
+                    });
+                });
+        }
+
+        function sendMessage() {
+            const message = messageInput.value;
+            if (message.trim() === '') return;
+
+            fetch('/messages', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message })
+            }).then(response => {
+                if (response.ok) {
+                    messageInput.value = '';
+                    fetchMessages();
+                }
+            });
+        }
+
+        sendButton.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        fetchMessages();
+        setInterval(fetchMessages, 5000); 
+    </script>
+</body>
+</html>
